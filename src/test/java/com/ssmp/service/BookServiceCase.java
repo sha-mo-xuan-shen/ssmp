@@ -18,4 +18,8 @@ public class BookServiceCase {
         book.setDescription("鉴定为假");
         bookService.save(book);
     }
+    @Test
+    public void getPage(){
+        bookService.getByPage(1,3);
+    }
 }
