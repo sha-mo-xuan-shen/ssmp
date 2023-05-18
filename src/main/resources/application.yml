@@ -11,3 +11,6 @@ mybatis-plus:
   global-config:
     db-config:
       table-prefix: tbl_
+      id-type: auto #没有这行id就是乱码
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
