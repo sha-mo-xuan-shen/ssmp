@@ -1,5 +1,7 @@
 package com.ssmp.dao;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.ssmp.domain.Book;
@@ -47,5 +49,14 @@ public class BookTestCase {
     public void getByPage(){
         IPage p = new Page(2,5);
         bookDao.selectPage(p,null);
+    }
+    @Test
+    public void getBy(){
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.like("description","鲁迅");
+        LambdaQueryWrapper<Book> lqw = new LambdaQueryWrapper<>();
+        lqw.like(Book::getDescription,"的");
+        // bookDao.selectList(wrapper);
+        bookDao.selectList(lqw);
     }
 }
