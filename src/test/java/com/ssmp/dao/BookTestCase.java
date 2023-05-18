@@ -54,8 +54,9 @@ public class BookTestCase {
     public void getBy(){
         QueryWrapper wrapper = new QueryWrapper<>();
         wrapper.like("description","鲁迅");
+        String name=null;
         LambdaQueryWrapper<Book> lqw = new LambdaQueryWrapper<>();
-        lqw.like(Book::getDescription,"的");
+        lqw.like(name!=null,Book::getDescription,name);
         // bookDao.selectList(wrapper);
         bookDao.selectList(lqw);
     }
