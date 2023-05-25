@@ -7,6 +7,7 @@ import com.ssmp.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,22 +25,36 @@ public class BookController2 {
         return r;
     }
 
+    @GetMapping("/{id}")
+    public R getById(@PathVariable int id){
+        Book byId = iBookService.getById(id);
+        R r = new R();
+        r.setFlag(byId!=null);
+        r.setData(byId);
+        return r;
+    }
     @PostMapping
     public R save(@RequestBody Book book){
         R r = new R();
-        r.setFlag(iBookService.save(book));
+        boolean flag = iBookService.save(book);
+        r.setFlag(flag);
+        r.setMsg(flag?"添加成功":"添加失败");
         return r;
     }
 
     @PutMapping
     public R alert(@RequestBody Book book){
-
-        return new R(iBookService.updateById(book));
+        R r = new R();
+        r.setFlag(iBookService.updateById(book));
+        return r;
     }
 
     @DeleteMapping("/{id}")
     public R remove(@PathVariable Integer id){
-        return new R(iBookService.removeById(id));
+        R r = new R();
+        r.setFlag(iBookService.removeById(id));
+        System.out.println(r);
+        return r;
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
