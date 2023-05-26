@@ -3,8 +3,6 @@ package com.ssmp.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ssmp.domain.Book;
 import com.ssmp.service.IBookService;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +37,7 @@ public class BookController {
 
     @GetMapping("/{currentPage}/{pageSize}")
     public IPage<Book> getPage(@PathVariable int currentPage,@PathVariable int pageSize){
-        IPage<Book> page = iBookService.getPage(currentPage, pageSize);
+        IPage<Book> page = iBookService.getPage(currentPage, pageSize, null);
         return page;
     }
 }

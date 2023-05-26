@@ -7,7 +7,6 @@ import com.ssmp.service.IBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -58,8 +57,12 @@ public class BookController2 {
     }
 
     @GetMapping("/{currentPage}/{pageSize}")
-    public R getPage(@PathVariable int currentPage,@PathVariable int pageSize){
-        IPage<Book> page = iBookService.getPage(currentPage, pageSize);
+    public R getPage(@PathVariable int currentPage,@PathVariable int pageSize,Book book){
+        // System.out.println("实例========>"+book);
+        IPage<Book> page = iBookService.getPage(currentPage, pageSize,book);
+        if(currentPage>page.getPages()){
+            page = iBookService.getPage((int) page.getPages(), pageSize, book);
+        }
         return new R(page!=null,page);
     }
 }
